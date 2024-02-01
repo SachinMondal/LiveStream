@@ -13,11 +13,11 @@ const App = () => {
 
       <Navbar />
       <div style={{ textAlign: 'center', padding: '1rem' }}>
-        <h1 className='text-white text-2xl md:text-4xl'>Live Stream App</h1>
+        <h1 className='text-white text-2xl md:text-4xl'>Live Stream</h1>
       </div>
 
       <Grid container className="App" xs={12} bgcolor={"black"}>
-        <Grid item className='flex items-center justify-center mb-2' xs={12} md={8}>
+        <Grid item className='flex items-center justify-center' xs={12} md={8}>
           <VideoPlayer
             url="your-rtsp-url-here"
             videoRef={videoRef}

@@ -78,7 +78,7 @@ const OverlayForm = () => {
                         </div>
                     </Grid>
                     {overlay.contentType === 'text' && (
-                        <Grid className="col-span-full flex justify-start flex-wrap ml-6" item xs={12}>
+                        <Grid className="flex justify-start flex-wrap ml-6" item xs={12} md={12}>
                             <label htmlFor="content" className="block ml-9 text-sm font-medium leading-6 text-gray-100">
                                 Content:
                             </label>
@@ -87,7 +87,7 @@ const OverlayForm = () => {
                                     id="content"
                                     name="content"
                                     rows={3}
-                                    className="block w-[32.5rem] ml-10 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    className="block w-full ml-10 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                     value={overlay.content}
                                     onChange={handleInputChange}
 
@@ -101,21 +101,9 @@ const OverlayForm = () => {
                             <label htmlFor="imageUrl" className="ml-8 block text-sm font-medium leading-6 text-gray-100">
                                 Image URL:
                             </label>
-                            <div className="ml-10 flex items-center gap-x-20">
-                                <input
-                                    type="file"
-                                    id="imageUrl"
-                                    name="imageUrl"
-                                    onChange={(e) => handleInputChange({ target: { name: 'imageUrl', value: e.target.value } })}
-                                />
+                            <div className="ml-10 flex items-center gap-x-4">
                                 <UserCircleIcon className="h-12 w-12 text-gray-300" aria-hidden="true" />
-                                <button
-                                    type="button"
-                                    className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-                                    onClick={() => console.log('Change button clicked')} // Handle the change button click event
-                                >
-                                    Change
-                                </button>
+                                <input type="url" className='text-gray-900 px-2 py-1 w-full rounded-md' />
                             </div>
                         </Grid>
                     )}
@@ -130,7 +118,8 @@ const OverlayForm = () => {
                                 autoComplete="size"
                                 value={overlay.size}
                                 onChange={handleInputChange}
-                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                                defaultValue={'Select Size'}
+                                className="block w-full rounded-md border-0 py-2 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                             >
                                 <option value="image">Small</option>
                                 <option value="text">Medium</option>
@@ -155,19 +144,27 @@ const OverlayForm = () => {
 
             <div>
                 <h3 className='text-white text-2xl m-3'>Overlay List</h3>
-                <Grid className="h-[18rem] overflow-y-auto">
+                <Grid className="h-full overflow-y-auto">
                     <ul className='text-white'>
-                        {[1, 1, 1].map((overlay) => (
-                            <li key={overlay.id} className='text-white'>
-                                <marque>{overlay.content}</marque> - {overlay.position} - {overlay.size}
-                                <button type="button" onClick={() => deleteOverlay(overlay.id)}>
-                                    Delete
-                                </button>
-
+                        {overlay.length > 0 ? (
+                            [1, 1, 1].map((overlay) => (
+                                <li key={overlay.id} className='text-white'>
+                                    <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                                        {overlay.content}
+                                    </span> - {overlay.position} - {overlay.size}
+                                    <button type="button" onClick={() => deleteOverlay(overlay.id)}>
+                                        Delete
+                                    </button>
+                                </li>
+                            ))
+                        ) : (
+                            <li>
+                                <p>No Items Found</p>
                             </li>
-                        ))}
+                        )}
                     </ul>
                 </Grid>
+
             </div>
         </div>
     );
