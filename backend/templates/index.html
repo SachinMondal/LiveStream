@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Video Streaming</title>
+  </head>
+
+  <body>
+    <h1>Live Video Stream</h1>
+    <div>
+      <video id="videoPlayer" width="50%" controls autoplay></video>
+    </div>
+
+    <script>
+      const videoPlayer = document.getElementById("videoPlayer");
+      const socket = new WebSocket("ws://localhost:5000/");
+
+      socket.onopen = () => {
+        console.log("WebSocket connection opened");
+      };
+
+      socket.onmessage = (event) => {
+        const imageUrl = URL.createObjectURL(
+          new Blob([event.data], { type: "image/jpeg" })
+        );
+        videoPlayer.src = imageUrl;
+      };
+
+      socket.onclose = (event) => {
+        console.log("WebSocket connection closed:", event);
+      };
+    </script>
+  </body>
+</html>

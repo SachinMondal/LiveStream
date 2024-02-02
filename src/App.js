@@ -6,7 +6,7 @@ import Navbar from './components/Navbar';
 import { Grid } from '@mui/material';
 
 const App = () => {
-  const videoRef = useRef(null);
+  const videoRef = useRef();
 
   return (
     <div className="bg-black h-[100vh] w-full">
